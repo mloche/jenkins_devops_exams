@@ -42,8 +42,8 @@ stages {
             }
 
         }
-/*
-        stage('Docker Push'){ //we pass the built image to our docker hub account
+
+        stage('Docker Push API'){ //we pass the built image to our docker hub account
             environment
             {
                 DOCKER_PASS = credentials("DOCKER_HUB_PASS") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
@@ -54,13 +54,13 @@ stages {
                 script {
                 sh '''
                 docker login -u $DOCKER_ID -p $DOCKER_PASS
-                docker push $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
+                docker push $DOCKER_ID/$EXAM_APP:$DOCKER_TAG
                 '''
                 }
             }
 
         }
-
+*/
 stage('Deploiement en dev'){
         environment
         {
