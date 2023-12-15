@@ -26,8 +26,8 @@ stages {
                 steps {
                     script {
                     sh '''
-                    docker run -d -p 80:80 --name jenkins-exam-app  $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
-                    sleep 10
+                    docker run -d -p 80:80 --name jenkins-exam-movies-app  $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
+                    sleep 60
                     '''
                     }
                 }
