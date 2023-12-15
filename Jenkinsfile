@@ -2,7 +2,7 @@ pipeline {
 environment { // Declaration of environment variables
 DOCKER_ID = "mloche" // replace this with your docker-id
 EXAM_DB = "jenkins-exam-db"
-EXAM_APP = "jenkins-exam-app"
+MOVIES_EXAM_APP = "jenkins-exam-movies-app"
 DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build in order to increment the value by 1 with each new build
 }
 agent any // Jenkins will be able to select all available agents
@@ -11,9 +11,9 @@ stages {
             steps {
                 script {
                 sh '''
-                 docker rm -f jenkins-exam-app
+                 docker rm -f jenkins-exam-movies-app
                  cd movie-service
-                 docker build -t $DOCKER_ID/$EXAM_APP:$DOCKER_TAG .
+                 docker build -t $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG .
                 sleep 6
                 '''
                 }
@@ -26,7 +26,7 @@ stages {
                 steps {
                     script {
                     sh '''
-                    docker run -d -p 80:80 --name jenkins-exam-app  $DOCKER_ID/$EXAM_APP:$DOCKER_TAG
+                    docker run -d -p 80:80 --name jenkins-exam-app  $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
                     sleep 10
                     '''
                     }
@@ -37,7 +37,7 @@ stages {
             steps {
                     script {
                     sh '''
-                    curl localhost
+                    curl localhost:/api/v1/movies/docs
                     '''
                     }
             }
@@ -55,7 +55,7 @@ stages {
                 script {
                 sh '''
                 docker login -u $DOCKER_ID -p $DOCKER_PASS
-                docker push $DOCKER_ID/$EXAM_APP:$DOCKER_TAG
+                docker push $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
                 '''
                 }
             }
