@@ -11,9 +11,8 @@ stages {
             steps {
                 script {
                 sh '''
-                 docker rm -f jenkins-exam-app
                  cd movie-service
-                 docker build -t $DOCKER_ID/$EXAM-APP:$DOCKER_TAG .
+                 docker build -t $DOCKER_ID/$EXAM_APP:$DOCKER_TAG .
                 sleep 6
                 '''
                 }
