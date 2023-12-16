@@ -23,3 +23,8 @@ async def get_cast(id: int):
     if not cast:
         raise HTTPException(status_code=404, detail="Cast not found")
     return cast
+
+
+@casts.get('/status')
+def status():
+    return {'status':'OK'}

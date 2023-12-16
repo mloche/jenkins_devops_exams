@@ -25,6 +25,14 @@ async def create_movie(payload: MovieIn):
 async def get_movies():
     return await db_manager.get_all_movies()
 
+
+
+@movies.get('/status')
+def status():
+	return {'status':'OK'}
+  
+
+
 @movies.get('/{id}/', response_model=MovieOut)
 async def get_movie(id: int):
     movie = await db_manager.get_movie(id)
