@@ -7,10 +7,65 @@ DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build 
 }
 agent any // Jenkins will be able to select all available agents
 stages{
-# build movie db
-# build movie api
-# build nginx
-# test api
+// build movie db
+stage('Deploy movie DB') {
+            steps {
+                sh 'docker run -d --name movie-db-container -v postgres_data_movie:/var/lib/postgresql/data/ -e POSTGRES_USER=movie_db_username \
+              -e POSTGRES_PASSWORD=movie_db_password -e POSTGRES_DB=movie_db_dev postgres:12.1-alpine'
+            }
+        }
+
+// build movie api
+
+stage('Deploy cast DB') {
+            steps {
+                sh 'docker run -d --name cast-db-container -v postgres_data_casts:/var/lib/postgresql/data/ -e POSTGRES_USER=cast_db_username \
+                 -e POSTGRES_PASSWORD=cast_db_password -e POSTGRES_DB=cast_db_dev postgres:12.1-alpine'
+            }
+        }
+
+// build nginx
+stage('deploy nginx') {
+	steps{
+		sh '''
+		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx.conf:/etc/nginx/default.conf
+		'''
+		}
+	}
+
+// build movie api
+
+stage('build movie api') {
+	steps{
+		sh """
+ 		docker build ./movie-service MOVIE_EXAM_APP:DOCKER_TAG
+		"""
+	}
+
+}
+// start movie api
+
+stage('start movie API'){
+	steps{
+		sh """
+			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ MOVIE_EXAM_APP:DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+		"""
+	}
+}
+
+// build casts api
+
+
+
+// test api
+
+// test movies
+// test casts 
+
+//Push images in docker hub
+// push in git
+
+
 }
 
 
