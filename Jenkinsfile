@@ -28,7 +28,7 @@ stage('Deploy cast DB') {
 stage('deploy nginx') {
 	steps{
 		sh '''
-		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx.conf:/etc/nginx/default.conf
+		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx.conf:/etc/nginx/default.conf nginx:latest
 		'''
 		}
 	}
