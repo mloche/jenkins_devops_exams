@@ -8,6 +8,17 @@ DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build 
 agent any // Jenkins will be able to select all available agents
 stages{
 // build movie db
+
+stage('cleaning former runs') {
+steps{
+sh """
+docker rm -f movie-db-container
+docker rm -f cast-db-container
+docker rm -f exam-nginx
+"""
+}
+}
+
 stage('Deploy movie DB') {
             steps {
                 sh 'docker run -d --name movie-db-container -v postgres_data_movie:/var/lib/postgresql/data/ -e POSTGRES_USER=movie_db_username \
