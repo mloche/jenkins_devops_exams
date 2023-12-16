@@ -15,6 +15,7 @@ sh """
 docker rm -f movie-db-container
 docker rm -f cast-db-container
 docker rm -f exam-nginx
+docker rm -f exam-movie-app
 """
 }
 }
@@ -49,7 +50,8 @@ stage('deploy nginx') {
 stage('build movie api') {
 	steps{
 		sh """
- 		docker build ./movie-service MOVIE_EXAM_APP:DOCKER_TAG
+                cd movie-service
+ 		docker build . MOVIE_EXAM_APP:DOCKER_TAG
 		"""
 	}
 
