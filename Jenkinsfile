@@ -51,7 +51,7 @@ stage('build movie api') {
 	steps{
 		sh """
                 cd movie-service
- 		docker build . $MOVIE_EXAM_APP:$DOCKER_TAG
+ 		docker build -t $MOVIE_EXAM_APP:$DOCKER_TAG .
 		"""
 	}
 
