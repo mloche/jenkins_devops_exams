@@ -61,8 +61,7 @@ stage('build movie api') {
 stage('start movie API'){
 	steps{
 		sh """
-			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@movie-db-container/movie_db_dev \ 
- --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@movie-db-container/movie_db_dev  --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 		"""
 	}
 }
