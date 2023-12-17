@@ -91,7 +91,7 @@ stage('build cast api') {
 
 stage('start casts API'){
         steps{
-                sh ''' docker run -d -p 8010:8000 --name exam-casts-app -v ./cast-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:casts_db_password@172.17.0.3/casts_db_dev \\
+                sh ''' docker run -d -p 8010:8000 --name exam-casts-app -v ./cast-service/:/app/ -e DATABASE_URI=postgresql://cast_db_username:cast_db_password@172.17.0.3/cast_db_dev \\
                  --ip 172.17.0.6 $CASTS_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '''
                      }
 }
