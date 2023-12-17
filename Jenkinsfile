@@ -72,10 +72,8 @@ stage('build movie api') {
 
 stage('start movie API'){
 	steps{
-		sh """
-			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@172.17.0.2/movie_db_dev \ 
-                     -e CAST_SERVICE_HOST_URL=http://cast_service:8000/api/v1/casts/ --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-		"""
+		sh 'docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@172.17.0.2/movie_db_dev \ 
+                     -e CAST_SERVICE_HOST_URL=http://cast_service:8000/api/v1/casts/ --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '
 	}
 }
 
@@ -93,10 +91,9 @@ stage('build cast api') {
 
 stage('start casts API'){
         steps{
-                sh """
-                        docker run -d -p 8010:8000 --name exam-casts-app -v ./casts-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:casts_db_password@172.17.0.3/casts_db_dev  --ip 172.17.0.5 $CASTS_EXAM_APP:$DO>
-                """
-        }
+                sh ' docker run -d -p 8010:8000 --name exam-casts-app -v ./casts-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:casts_db_password@172.17.0.3/casts_db_dev \ 
+                --ip 172.17.0.5 $CASTS_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '
+                     }
 }
 
 
