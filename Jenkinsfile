@@ -3,6 +3,7 @@ environment { // Declaration of environment variables
 DOCKER_ID = "mloche" // replace this with your docker-id
 MOVIES_EXAM_DB = "jenkins-exam-movies-db"
 MOVIES_EXAM_APP = "jenkins-exam-movies-app"
+CASTS_EXAM_APP
 DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build in order to increment the value by 1 with each new build
 }
 agent any // Jenkins will be able to select all available agents
@@ -16,6 +17,7 @@ docker rm -f movie-db-container
 docker rm -f cast-db-container
 docker rm -f exam-nginx
 docker rm -f exam-movie-app
+docker rm -f exam-casts-app
 """
 }
 }
@@ -27,7 +29,7 @@ stage('Deploy movie DB') {
             }
         }
 
-// build movie api
+
 
 stage('Deploy cast DB') {
             steps {
@@ -71,12 +73,31 @@ stage('build movie api') {
 stage('start movie API'){
 	steps{
 		sh """
-			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@172.17.0.2/movie_db_dev  --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+			docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@172.17.0.2/movie_db_dev -e CAST_SERVICE_HOST_URL=http://cast_service:8000/api/v1/casts/ --ip 172.17.0.4 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 		"""
 	}
 }
 
 // build casts api
+stage('build cast api') {
+        steps{
+                sh """
+                cd casts-service
+                docker build -t $CASTS_EXAM_APP:$DOCKER_TAG .
+                """
+        }
+
+}
+// start movie api
+
+stage('start casts API'){
+        steps{
+                sh """
+                        docker run -d -p 8010:8000 --name exam-casts-app -v ./casts-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:casts_db_password@172.17.0.3/casts_db_dev  --ip 172.17.0.5 $CASTS_EXAM_APP:$DO>
+                """
+        }
+}
+
 
 
 
