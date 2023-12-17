@@ -82,7 +82,7 @@ stage('start movie API'){
 stage('build cast api') {
         steps{
                 sh """
-                cd casts-service
+                cd cast-service
                 docker build -t $CASTS_EXAM_APP:$DOCKER_TAG .
                 """
         }
