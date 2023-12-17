@@ -37,10 +37,20 @@ stage('Deploy cast DB') {
         }
 
 // build nginx
+stage('build nginx'){
+	steps{
+		sh """
+		cd nginx
+		docker build -t exam_nginx:$DOCKER_TAG	
+		"""
+	}
+}
+
+
 stage('deploy nginx') {
 	steps{
 		sh '''
-		docker run -d -p 8011:80 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.1 nginx:latest
+		docker run -d -p 8011:80 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.1 exam_nginx:$DOCKER_TAG
 		'''
 		}
 	}
