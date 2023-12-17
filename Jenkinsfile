@@ -3,7 +3,7 @@ environment { // Declaration of environment variables
 DOCKER_ID = "mloche" // replace this with your docker-id
 MOVIES_EXAM_DB = "jenkins-exam-movies-db"
 MOVIES_EXAM_APP = "jenkins-exam-movies-app"
-CASTS_EXAM_APP
+CASTS_EXAM_APP = "jenkins-exam-casts-app"
 DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build in order to increment the value by 1 with each new build
 }
 agent any // Jenkins will be able to select all available agents
