@@ -99,10 +99,22 @@ stage('start casts API'){
 
 
 
-// test api
+// test nginx
+stage('Testing Nginx'){
+steps{sh ''' docker run -d --name exam-test-nginx curlimage/curl curl http://172.17.0.4}
+}
 
 // test movies
+stage('Testing movies api'){
+steps{sh ''' docker run -d --name exam-test-nginx curlimage/curl curl http://172.17.0.5:8000/api/v1/movies/status}
+}
+
 // test casts 
+
+stage('Testing casts api'){
+steps{sh ''' docker run -d --name exam-test-nginx curlimage/curl curl http://172.17.0.6:8000/api/v1/casts/status}
+}
+
 
 //Push images in docker hub
 // push in git
