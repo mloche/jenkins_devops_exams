@@ -41,7 +41,7 @@ stage('build nginx'){
 	steps{
 		sh """
 		cd nginx
-		docker build -t exam_nginx:$DOCKER_TAG	
+		docker build -t exam_nginx:$DOCKER_TAG	.
 		"""
 	}
 }
