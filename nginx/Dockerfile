@@ -1,3 +1,3 @@
 FROM nginx:latest
 
-COPY ./nginx_config.conf /etc/nginx/nginx.conf
+COPY ./nginx_config.conf /etc/nginx/conf.d/exam.conf
