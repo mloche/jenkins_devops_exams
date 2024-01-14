@@ -23,7 +23,7 @@ docker rm -f exam-test-casts
 }
 }
 
-stage('Deploy movie DB') {
+stage('Deploy the movie DB') {
             steps {
                 sh '''docker run -d --name movie-db-container -v postgres_data_movie:/var/lib/postgresql/data/ -e POSTGRES_USER=movie_db_username \\
               -e POSTGRES_PASSWORD=movie_db_password -e POSTGRES_DB=movie_db_dev --ip 172.17.0.2 postgres:12.1-alpine'''
@@ -119,7 +119,6 @@ steps{sh ''' docker run -d --name exam-test-casts curlimages/curl -L -v http://1
 
 //Push images in docker hub
 // push in git
-
 
 }
 
