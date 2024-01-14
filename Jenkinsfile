@@ -4,6 +4,7 @@ DOCKER_ID = "mloche" // replace this with your docker-id
 MOVIES_EXAM_DB = "jenkins-exam-movies-db"
 MOVIES_EXAM_APP = "jenkins-exam-movies-app"
 CASTS_EXAM_APP = "jenkins-exam-casts-app"
+NGINX_EXAM_APP = "jenkins-exam-nginx-app"
 DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build in order to increment the value by 1 with each new build
 }
 agent any // Jenkins will be able to select all available agents
@@ -44,7 +45,7 @@ stage('build nginx'){
 	steps{
 		sh """
 		cd nginx
-		docker build -t exam_nginx:$DOCKER_TAG	.
+		docker build -t $NGINX_EXAM_APP:$DOCKER_TAG	.
 		"""
 	}
 }
@@ -53,7 +54,7 @@ stage('build nginx'){
 stage('deploy nginx') {
 	steps{
 		sh '''
-		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.4 exam_nginx:$DOCKER_TAG
+		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.4 $NGINX_EXAM_APP:$DOCKER_TAG
 		'''
 		}
 	}
@@ -119,6 +120,40 @@ steps{sh ''' docker run -d --name exam-test-casts curlimages/curl -L -v http://1
 
 //Push images in docker hub
 // push in git
+stage('Push images in docker Hub'){
+environment{
+DOCKER_PASS = credentials("DOCKER_HUB_PASS")
+}
+steps{
+sh '''
+docker login -u $DOCKER_ID -p $DOCKER_PASS
+docker push $DOCKER_ID/$NGINX_EXAM_APP:$DOCKER_TAG
+docker push $DOCKER_ID/$CASTS_EXAM_APP:$DOCKER_TAG
+docker push $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
+'''
+}
+}
+
+stage('Deploy Dev'){
+environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                cp fastapi/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app jenkins-exam --values=values.yml --namespace dev
+                '''
+                }
+            }
+}
 
 }
 
