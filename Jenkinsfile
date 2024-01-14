@@ -45,7 +45,8 @@ stage('build nginx'){
 	steps{
 		sh """
 		cd nginx
-		docker build -t $NGINX_EXAM_APP:$DOCKER_TAG	.
+		docker build -t $DOCKER_ID/$NGINX_EXAM_APP:$DOCKER_TAG	.
+                
 		"""
 	}
 }
@@ -54,7 +55,7 @@ stage('build nginx'){
 stage('deploy nginx') {
 	steps{
 		sh '''
-		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.4 $NGINX_EXAM_APP:$DOCKER_TAG
+		docker run -d -p 8011:8080 --name exam-nginx -v ./nginx_config.conf:/etc/nginx/default.conf --ip 172.17.0.4 $DOCKER_ID/$NGINX_EXAM_APP:$DOCKER_TAG
 		'''
 		}
 	}
@@ -65,7 +66,7 @@ stage('build movie api') {
 	steps{
 		sh """
                 cd movie-service
- 		docker build -t $MOVIES_EXAM_APP:$DOCKER_TAG .
+ 		docker build -t $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG .
 		"""
 	}
 
@@ -75,7 +76,7 @@ stage('build movie api') {
 stage('start movie API'){
 	steps{
 		sh '''docker run -d -p 8009:8000 --name exam-movie-app -v ./movie-service/:/app/ -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@172.17.0.2/movie_db_dev \\
-          -e CAST_SERVICE_HOST_URL=http://172.17.0.6:8000/api/v1/casts/ --ip 172.17.0.5 $MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '''
+          -e CAST_SERVICE_HOST_URL=http://172.17.0.6:8000/api/v1/casts/ --ip 172.17.0.5 $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '''
 	}
 }
 
@@ -84,7 +85,7 @@ stage('build cast api') {
         steps{
                 sh """
                 cd cast-service
-                docker build -t $CASTS_EXAM_APP:$DOCKER_TAG .
+                docker build -t $DOCKER_ID/$CASTS_EXAM_APP:$DOCKER_TAG .
                 """
         }
 
@@ -94,7 +95,7 @@ stage('build cast api') {
 stage('start casts API'){
         steps{
                 sh ''' docker run -d -p 8010:8000 --name exam-casts-app -v ./cast-service/:/app/ -e DATABASE_URI=postgresql://cast_db_username:cast_db_password@172.17.0.3/cast_db_dev \\
-                 --ip 172.17.0.6 $CASTS_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '''
+                 --ip 172.17.0.6 $DOCKER_ID/$CASTS_EXAM_APP:$DOCKER_TAG uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 '''
                      }
 }
 
