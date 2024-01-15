@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cast-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-cast
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-cast
+    spec:
+      containers:
+      - name: cast
+        image: {{ .Values.cast.image.repository }}:{{ .Values.cast.image.tag }}
+        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.cast.host }}", "--port", "{{ .Values.cast.port }}"]
+        env:
+        - name: DATABASE_URI
+          value: {{ .Values.cast.database.uri }}
+        ports:
+        - containerPort: {{ .Values.cast.port }}
+        volumeMounts:
+        - name: cast-pvc
+          mountPath: /app/
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-cast-app
+spec:
+  selector:
+    app: {{ .Release.Name }}-cast
+  ports:
+  - protocol: TCP
+    port: {{ .Values.cast.port }}
+    targetPort: {{ .Values.cast.port }}

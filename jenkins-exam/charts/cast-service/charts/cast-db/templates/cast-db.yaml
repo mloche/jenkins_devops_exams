@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cast-db-dep
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-cast-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-cast-db
+    spec:
+      volumes:
+        - name: cast-db-volume
+          persistentVolumeClaim:
+            claimName: cast-db-pvc
+      containers:
+      - name: orders
+        image: {{ .Values.cast-db.image.repository }}:{{ .Values.cast-db.image.tag }}
+        ports:
+        - containerPort: {{ .Values.cast-db.targetPort }}
+        volumeMounts:
+          - name: cast-db-volume
+            mountPath: /var/lib/postgresql/data/
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-cast-db-svc
+  labels:
+    app: {{ .Release.Name }}-cast-db
+spec:
+  selector:
+    app: {{ .Release.Name }}-cast-db
+  ports:
+    - port: {{ .Values.cast-db.port }}
+      protocol: TCP
+      targetPort: {{ .Values.cast-db.targetPort }}
+  type: ClusterIP
