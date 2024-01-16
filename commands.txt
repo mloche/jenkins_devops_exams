@@ -1,0 +1,2 @@
+helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace jenkins
+helm uninstall jenkins --namespace jenkins

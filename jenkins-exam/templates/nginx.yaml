@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nginxdep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-nginx
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-nginx
+    spec:
+      containers:
+      - name: cast
+        image: {{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}
+        ports:
+        - containerPort: {{ .Values.nginx.port }}
+        volumeMounts:
+        - name: nginx-conf-vol
+          mountPath: /etc/nginx/nginx.conf
+      volmumes:
+        - name: nginx-conf-vol
+          configMap:
+            name: nginx-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-nginx-app
+spec:
+  selector:
+    app: {{ .Release.Name }}-nginx
+  ports:
+  - protocol: TCP
+    port: {{ .Values.nginx.port }}
+    targetPort: {{ .Values.nginx.port }}

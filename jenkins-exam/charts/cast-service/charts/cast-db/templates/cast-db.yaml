@@ -16,13 +16,13 @@ spec:
           persistentVolumeClaim:
             claimName: cast-db-pvc
       containers:
-      - name: orders
-        image: {{ .Values.cast-db.image.repository }}:{{ .Values.cast-db.image.tag }}
-        ports:
-        - containerPort: {{ .Values.cast-db.targetPort }}
-        volumeMounts:
-          - name: cast-db-volume
-            mountPath: /var/lib/postgresql/data/
+        - name: cast-db
+          image: {{ .Values.castdb.image.repository }}:{{ .Values.castdb.image.tag }}
+          ports:
+           - containerPort: {{ .Values.castdb.targetPort }}
+          volumeMounts:
+           - name: cast-db-volume
+             mountPath: /var/lib/postgresql/data/
 
 ---
 apiVersion: v1
@@ -35,7 +35,7 @@ spec:
   selector:
     app: {{ .Release.Name }}-cast-db
   ports:
-    - port: {{ .Values.cast-db.port }}
+    - port: {{ .Values.castdb.port }}
       protocol: TCP
-      targetPort: {{ .Values.cast-db.targetPort }}
+      targetPort: {{ .Values.castdb.targetPort }}
   type: ClusterIP

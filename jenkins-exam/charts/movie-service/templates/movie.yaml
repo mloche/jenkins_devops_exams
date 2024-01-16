@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-movie-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-movie
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-movie
+    spec:
+      containers:
+      - name: cast
+        image: {{ .Values.movie.image.repository }}:{{ .Values.movie.image.tag }}
+        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.movie.host }}", "--port", "{{ .Values.movie.port }}"]
+        env:
+        - name: DATABASE_URI
+          value: {{ .Values.movie.database.uri }}
+        ports:
+        - containerPort: {{ .Values.movie.port }}
+        volumeMounts:
+        - name: movie-pvc
+          mountPath: /app/
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-movie-app
+spec:
+  selector:
+    app: {{ .Release.Name }}-movie
+  ports:
+  - protocol: TCP
+    port: {{ .Values.movie.port }}
+    targetPort: {{ .Values.movie.port }}

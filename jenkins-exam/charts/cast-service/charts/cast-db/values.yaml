@@ -1,4 +1,4 @@
-cast-db:
+castdb:
   image:
     repository: "mloche/jenkins_cast-db"
     tag: "latest"
