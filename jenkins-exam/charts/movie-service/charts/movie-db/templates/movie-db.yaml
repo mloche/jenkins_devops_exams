@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-movie-db-dep
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-movie-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-movie-db
+    spec:
+      volumes:
+        - name: movie-db-volume
+          persistentVolumeClaim:
+            claimName: movie-db-pvc
+      containers:
+        - name: cast-db
+          image: {{ .Values.moviedb.image.repository }}:{{ .Values.moviedb.image.tag }}
+          ports:
+           - containerPort: {{ .Values.moviedb.targetPort }}
+          volumeMounts:
+           - name: movie-db-volume
+             mountPath: /var/lib/postgresql/data/
+          env:
+           - name: POSTGRES_USER
+             value: {{ .Values.moviedb.username }}
+           - name: POSTGRES_DB
+             value: {{ .Values.moviedb.moviedb }}
+           - name: POSTGRES_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: movie-secrets
+                 key: movie-dbpass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-movie-db-svc
+  labels:
+    app: {{ .Release.Name }}-movie-db
+spec:
+  selector:
+    app: {{ .Release.Name }}-movie-db
+  ports:
+    - port: {{ .Values.moviedb.port }}
+      protocol: TCP
+      targetPort: {{ .Values.moviedb.targetPort }}
+  type: ClusterIP

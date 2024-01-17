@@ -1,0 +1,9 @@
+moviedb:
+  image:
+    repository: "postgres"
+    tag: "12.1-alpine"
+  host: "0.0.0.0"
+  port: 5432
+  targetPort: 5432
+  username: "movie_db_username"
+  moviedb: "movie_db_dev"

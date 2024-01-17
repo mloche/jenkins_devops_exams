@@ -13,7 +13,7 @@ spec:
         app: {{ .Release.Name }}-nginx
     spec:
       containers:
-      - name: cast
+      - name: nginx
         image: {{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}
         ports:
         - containerPort: {{ .Values.nginx.port }}
@@ -25,6 +25,9 @@ spec:
         - name: nginx-conf-vol
           configMap:
             name: nginx-configmap
+            items:
+              - key: nginx.conf
+                path: nginx.conf
 ---
 apiVersion: v1
 kind: Service

@@ -26,7 +26,7 @@ spec:
           mountPath: /app/
       volumes:
         - name: cast-mnt
-          peristentVolumeClaim:
+          persistentVolumeClaim:
             claimName: cast-pvc
 ---
 apiVersion: v1
