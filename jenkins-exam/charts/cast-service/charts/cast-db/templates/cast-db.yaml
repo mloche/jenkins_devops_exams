@@ -23,7 +23,16 @@ spec:
           volumeMounts:
            - name: cast-db-volume
              mountPath: /var/lib/postgresql/data/
-
+          env:
+           - name: POSTGRES_USER
+             value: {{ .Values.castdb.username }}
+           - name: POSTGRES_DB
+             value: {{ .Values.castdb.castdb }}
+           - name: POSTGRES_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: cast-secrets
+                 key: cast-dbpass
 ---
 apiVersion: v1
 kind: Service
