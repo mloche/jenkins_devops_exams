@@ -22,9 +22,12 @@ spec:
         ports:
         - containerPort: {{ .Values.cast.port }}
         volumeMounts:
-        - name: cast-pvc
+        - name: cast-mnt
           mountPath: /app/
-
+      volumes:
+        - name: cast-mnt
+          peristentVolumeClaim:
+            claimName: cast-pvc
 ---
 apiVersion: v1
 kind: Service

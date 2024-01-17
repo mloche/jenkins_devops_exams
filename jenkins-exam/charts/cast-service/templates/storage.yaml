@@ -11,7 +11,7 @@ spec:
     path: "./cast-app/"
   claimRef:
     name: cast-pvc
-
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

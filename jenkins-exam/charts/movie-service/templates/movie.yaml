@@ -22,8 +22,12 @@ spec:
         ports:
         - containerPort: {{ .Values.movie.port }}
         volumeMounts:
-        - name: movie-pvc
-          mountPath: /app/
+        - name: movie-mnt
+          mountPath: /app
+      volumes:
+        - name: movie-mnt
+          persistentVolumeClaim:
+            claimName: movie-pvc
 
 ---
 apiVersion: v1

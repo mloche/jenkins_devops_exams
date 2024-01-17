@@ -20,7 +20,7 @@ spec:
         volumeMounts:
         - name: nginx-conf-vol
           mountPath: /etc/nginx/nginx.conf
-      volmumes:
+      volumes:
         - name: nginx-conf-vol
           configMap:
             name: nginx-configmap
