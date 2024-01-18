@@ -19,15 +19,13 @@ spec:
         - containerPort: {{ .Values.nginx.port }}
         volumeMounts:
         - name: nginx-conf-vol
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf 
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: nginx.conf
       volumes:
         - name: nginx-conf-vol
           configMap:
-            name: nginx-configmap
-            items:
-              - key: nginx.conf
-                path: nginx.conf
+             name: nginx-configmap
+                        #    path: nginx.conf
 ---
 apiVersion: v1
 kind: Service
@@ -39,4 +37,5 @@ spec:
   ports:
   - protocol: TCP
     port: {{ .Values.nginx.port }}
-    targetPort: {{ .Values.nginx.port }}
+    targetPort: {{ .Values.nginx.targetport }}
+  type: NodePort
