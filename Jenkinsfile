@@ -146,7 +146,8 @@ pipeline {
     steps {
       timeout: time(minutes: 5){
                 input message: 'Want to stop old dev?', ok: 'Yes',
-//                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)]}
+//                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)]
+      }
       script {
   //      if(params.stop_dev) {
           sh '''
@@ -183,9 +184,10 @@ pipeline {
     steps {
             // Create an Approval Button with a timeout of 15minutes.
             // this require a manuel validation in order to deploy on production environment
-        timeout(time: 15, unit: "MINUTES"){        
+      timeout(time: 15, unit: "MINUTES"){        
       input message: 'Want to deploy in prod ', ok: 'Yes',
-      //            parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)]}                   
+      //            parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)]
+      }                   
     
       script{
   //      if(params.deploy_prod){
