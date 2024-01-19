@@ -138,7 +138,7 @@ pipeline {
     }
   }
 
-/*
+
   stage('Stop old Dev'){
     environment{
       KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
@@ -146,17 +146,17 @@ pipeline {
     steps {
       timeout: time(minutes: 5){
                 input message: 'Want to stop old dev?', ok: 'Yes',
-                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)]}
+//                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)]}
       script {
-        if(params.stop_dev) {
+  //      if(params.stop_dev) {
           sh '''
           helm uninstall jenkins --namespace dev
           '''
-        }
+    //    }
       }
     }
   }
-*/
+
 
   stage('Deploy Dev'){
     environment{
@@ -175,12 +175,16 @@ pipeline {
     environment{
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
     }
-    when{branch 'master'}
+    when{
+      expression{
+        return env.GIT_BRANCH == "origin/master"
+      }
+    }
     steps {
             // Create an Approval Button with a timeout of 15minutes.
             // this require a manuel validation in order to deploy on production environment
-    //    timeout(time: 15, unit: "MINUTES"){        
-      //  input message: 'Want to deploy in prod ', ok: 'Yes',
+        timeout(time: 15, unit: "MINUTES"){        
+      input message: 'Want to deploy in prod ', ok: 'Yes',
       //            parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)]}                   
     
       script{
