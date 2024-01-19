@@ -135,6 +135,22 @@ docker push $DOCKER_ID/$MOVIES_EXAM_APP:$DOCKER_TAG
 }
 }
 
+
+stage('Stop old Dev'){
+environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+              script {
+                sh '''
+                helm uninstall jenkins --namespace dev
+                '''
+                }
+            }
+}
+
+
 stage('Deploy Dev'){
 environment
         {
@@ -143,14 +159,6 @@ environment
             steps {
                 script {
                 sh '''
-                rm -Rf .kube
-                mkdir .kube
-                ls
-#                cat $KUBECONFIG > .kube/config
-#                cp jenkins-exam/values.yaml values.yml
-#                ls
-#                cat values.yml
-               # sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                 helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
                 '''
                 }
