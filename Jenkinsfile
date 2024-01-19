@@ -26,9 +26,8 @@ pipeline {
 
   stage('echo branch name'){
     when{
-      beforeAgent true
-      anyOf{
-        branch "origin/master"
+      expression{
+        return env.GIT_BRANCH == "origin/master"
       }
     }
     steps{
