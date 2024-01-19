@@ -139,7 +139,7 @@ pipeline {
   }
 
 
-  stage('Stop old Dev'){
+/*  stage('Stop old Dev'){
     environment{
       KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
     }
@@ -157,7 +157,7 @@ pipeline {
       }
     }
   }
-
+*/
 
   stage('Deploy Dev'){
     environment{
