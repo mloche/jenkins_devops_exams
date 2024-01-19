@@ -24,7 +24,7 @@ pipeline {
       }
     }
 
-  stage('echo branch name'){{when branch "master"}steps{echo "master"}}
+  stage('echo branch name'){when{ branch "master"}steps{echo "master"}}
 
 
   stage('Deploy the movie DB') {
