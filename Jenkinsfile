@@ -185,7 +185,6 @@ pipeline {
 
 
   post { // send email when the job has failed
-    // ..
     failure {
         echo "This will run if the job failed"
         mail to: "loche.eu@gmail.com",
