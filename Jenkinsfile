@@ -24,7 +24,17 @@ pipeline {
       }
     }
 
-  stage('echo branch name'){when{ branch "master"}steps{echo "master"}}
+  stage('echo branch name'){
+    when{
+      beforeAgent true
+      anyOf{
+        branch "origin/master"
+      }
+    }
+    steps{
+      echo "master"
+    }
+  }
 
 
   stage('Deploy the movie DB') {
