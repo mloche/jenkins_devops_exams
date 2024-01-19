@@ -134,16 +134,15 @@ pipeline {
     steps {
                 input message: 'Want to stop old dev?', ok: 'Yes',
                   parameters: [booleanParam(name: 'stop_dev', defaultValue: true)], timeout: time(minutes: 5) 
-    }
-    script {
-      if(params.stop_dev) {
-        sh '''
-        helm uninstall jenkins --namespace dev
-        '''
+      script {
+        if(params.stop_dev) {
+          sh '''
+          helm uninstall jenkins --namespace dev
+          '''
+        }
       }
     }
   }
-
 
 
   stage('Deploy Dev'){
@@ -169,12 +168,13 @@ pipeline {
             // this require a manuel validation in order to deploy on production environment
                 input message: 'Want to deploy in prod ', ok: 'Yes',
                   parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)], timeout: time(minutes: 5)                   
-    }
-    script{
-      if(params.deploy_prod){
-        sh '''
-        helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
-        '''
+    
+      script{
+        if(params.deploy_prod){
+          sh '''
+          helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
+          '''
+        }
       }
     }
   }
