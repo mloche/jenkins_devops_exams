@@ -192,3 +192,5 @@ pipeline {
              body: "For more info on the pipeline failure, check out the console output at ${env.BUILD_URL}"
     }
   }
+// Closing Pipeline
+}
