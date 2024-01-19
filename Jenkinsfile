@@ -150,7 +150,7 @@ environment
                 cp jenkins-exam/values.yaml values.yml
                 cat values.yml
                 sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                helm upgrade --install app jenkins-exam --values=values.yml --namespace dev
+                helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
                 '''
                 }
             }

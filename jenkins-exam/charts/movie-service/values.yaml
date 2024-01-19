@@ -7,4 +7,4 @@ movie:
   port: 8000
   targetport: 8000
   database:
-    uri: "postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev"
+    uri: "postgresql://movie_db_username:movie_db_password@movie-db/movie_db_dev"

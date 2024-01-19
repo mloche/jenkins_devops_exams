@@ -24,7 +24,7 @@ spec:
         - containerPort: {{ .Values.cast.port }}
         volumeMounts:
         - name: cast-mnt
-          mountPath: /app/
+          mountPath: /app-storage/
       volumes:
         - name: cast-mnt
           persistentVolumeClaim:

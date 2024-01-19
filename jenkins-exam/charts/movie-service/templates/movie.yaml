@@ -24,7 +24,7 @@ spec:
         - containerPort: {{ .Values.movie.port }}
         volumeMounts:
         - name: movie-mnt
-          mountPath: /app
+          mountPath: /app-storage
       volumes:
         - name: movie-mnt
           persistentVolumeClaim:

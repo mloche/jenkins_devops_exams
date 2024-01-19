@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-cast-db-svc
+  name: cast-db
   labels:
     app: {{ .Release.Name }}-cast-db
 spec:
