@@ -24,6 +24,9 @@ pipeline {
       }
     }
 
+  stage('echo branch name'){steps{echo env.BRANCH_NAME}}
+
+
   stage('Deploy the movie DB') {
     steps {
       sh '''docker run -d --name movie-db-container -v postgres_data_movie:/var/lib/postgresql/data/ -e POSTGRES_USER=movie_db_username \\
