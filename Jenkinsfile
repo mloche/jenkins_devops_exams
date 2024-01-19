@@ -143,7 +143,7 @@ environment
         }
             steps {
                 input message: 'Want to stop old dev?', ok: 'Yes',
-                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)], timeout: time(minutes: 5))
+                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)], timeout: time(minutes: 5)}
               script {
                    if(params.stop_dev) {
                 sh '''
@@ -179,7 +179,7 @@ stage('Deploiement en prod'){
             // Create an Approval Button with a timeout of 15minutes.
             // this require a manuel validation in order to deploy on production environment
                 input message: 'Want to deploy in prod ', ok: 'Yes',
-                  parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)], timeout: time(minutes: 5))                   
+                  parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)], timeout: time(minutes: 5)}                   
 
                     }
 
