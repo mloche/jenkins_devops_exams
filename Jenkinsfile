@@ -126,7 +126,7 @@ pipeline {
     }
   }
 
-
+/*
   stage('Stop old Dev'){
     environment{
       KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
@@ -144,7 +144,7 @@ pipeline {
       }
     }
   }
-
+*/
 
   stage('Deploy Dev'){
     environment{
@@ -167,16 +167,16 @@ pipeline {
     steps {
             // Create an Approval Button with a timeout of 15minutes.
             // this require a manuel validation in order to deploy on production environment
-        timeout(time: 15, unit: "MINUTES"){        
-        input message: 'Want to deploy in prod ', ok: 'Yes',
-                  parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)]}                   
+    //    timeout(time: 15, unit: "MINUTES"){        
+      //  input message: 'Want to deploy in prod ', ok: 'Yes',
+      //            parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)]}                   
     
       script{
-        if(params.deploy_prod){
+  //      if(params.deploy_prod){
           sh '''
           helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
           '''
-        }
+       // }
       }
     }
   }
