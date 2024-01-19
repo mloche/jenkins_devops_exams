@@ -142,12 +142,16 @@ environment
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
             steps {
+                input message: 'Want to stop old dev?', ok: 'Yes',
+                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)], timeout: time(minutes: 5))
               script {
+                   if(params.stop_dev) {
                 sh '''
                 helm uninstall jenkins --namespace dev
                 '''
                 }
             }
+          }
 }
 
 
