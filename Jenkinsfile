@@ -174,24 +174,19 @@ stage('Deploiement en prod'){
         {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
+        when{branch 'master'}
             steps {
             // Create an Approval Button with a timeout of 15minutes.
             // this require a manuel validation in order to deploy on production environment
-                    timeout(time: 15, unit: "MINUTES") {
-                        input message: 'Do you want to deploy in production ?', ok: 'Yes'
+                input message: 'Want to deploy in prod ', ok: 'Yes',
+                  parameters: [booleanParam(name: 'deploy_prod', defaultValue: false)], timeout: time(minutes: 5))                   
+
                     }
 
-                script {
+                script { if(params.deploy_prod) {
                 sh '''
-                rm -Rf .kube
-                mkdir .kube
-                ls
-                cat $KUBECONFIG > .kube/config
-                cp jenkins-exam/values.yaml values.yml
-                cat values.yml
-                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                helm upgrade --install app jenkins-exam --values=values.yml --namespace prod
-                '''
+                  helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
+                '''}
                 }
             }
 }
