@@ -149,7 +149,7 @@ environment
                 cat $KUBECONFIG > .kube/config
                 cp jenkins-exam/values.yaml values.yml
                 ls
-                cat values.yml
+#                cat values.yml
                # sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                 helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
                 '''
