@@ -15,6 +15,7 @@ spec:
       containers:
       - name: cast
         image: {{ .Values.cast.image.repository }}:{{ .Values.cast.image.tag }}
+        imagePullPolicy: {{ .Values.cast.image.pullpolicy }}
         command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.cast.host }}", "--port", "{{ .Values.cast.port }}"]
         env:
         - name: DATABASE_URI

@@ -1,2 +1,10 @@
 helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace jenkins
 helm uninstall jenkins --namespace jenkins
+
+
+get image list : 
+
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c

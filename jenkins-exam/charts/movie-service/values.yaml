@@ -2,6 +2,7 @@ movie:
   image:
     repository: "mloche/jenkins-exam-movies-app"
     tag: "latest"
+    pullpolicy: Always
   host: "0.0.0.0"
   port: 8000
   targetport: 8000
