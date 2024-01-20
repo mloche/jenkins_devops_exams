@@ -158,7 +158,7 @@ pipeline {
     steps {
       script {
         sh '''
-        helm upgrade --install jenkins-QA jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace qa
+        helm upgrade --install jenkins-qa jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace qa
         '''
       }
     }
