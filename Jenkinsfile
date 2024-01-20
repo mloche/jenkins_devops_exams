@@ -166,7 +166,7 @@ pipeline {
     steps {
       script {
         sh '''
-        helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
+        helm upgrade --install jenkins-dev jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
         '''
       }
     }
@@ -190,7 +190,7 @@ pipeline {
     
       script{
         sh '''
-        helm upgrade --install jenkins jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
+        helm upgrade --install jenkins-prod jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace prod
         '''
       }
     }
