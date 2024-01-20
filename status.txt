@@ -1,112 +1,112 @@
 ######   Listing DEV  ######
 NAME                                           READY   STATUS    RESTARTS   AGE
-pod/jenkins-dev-nginxdep-5599bd489d-f59gg      1/1     Running   0          9m31s
-pod/jenkins-dev-movie-db-dep-c7c4d75d8-bsj8l   1/1     Running   0          9m31s
-pod/jenkins-dev-cast-dep-f56486cd9-kpwf4       1/1     Running   0          9m31s
-pod/jenkins-dev-movie-dep-66dc5665d9-7l54w     1/1     Running   0          9m31s
-pod/jenkins-dev-cast-db-dep-6f58cd574d-6tqfk   1/1     Running   0          9m31s
+pod/jenkins-dev-nginxdep-5599bd489d-f59gg      1/1     Running   0          18m
+pod/jenkins-dev-movie-db-dep-c7c4d75d8-bsj8l   1/1     Running   0          18m
+pod/jenkins-dev-cast-dep-f56486cd9-kpwf4       1/1     Running   0          18m
+pod/jenkins-dev-movie-dep-66dc5665d9-7l54w     1/1     Running   0          18m
+pod/jenkins-dev-cast-db-dep-6f58cd574d-6tqfk   1/1     Running   0          18m
 
 NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-service/jenkins-dev-movie-app   ClusterIP   10.43.86.208    <none>        8000/TCP         9m31s
-service/jenkins-dev-cast-app    NodePort    10.43.184.80    <none>        8002:30518/TCP   9m31s
-service/cast-db                 ClusterIP   10.43.180.137   <none>        5432/TCP         9m31s
-service/jenkins-dev-nginx-app   NodePort    10.43.70.169    <none>        8080:32443/TCP   9m31s
-service/movie-db                ClusterIP   10.43.72.139    <none>        5432/TCP         9m31s
+service/jenkins-dev-movie-app   ClusterIP   10.43.86.208    <none>        8000/TCP         18m
+service/cast-db                 ClusterIP   10.43.180.137   <none>        5432/TCP         18m
+service/jenkins-dev-nginx-app   NodePort    10.43.70.169    <none>        8080:32443/TCP   18m
+service/movie-db                ClusterIP   10.43.72.139    <none>        5432/TCP         18m
+service/jenkins-dev-cast-app    ClusterIP   10.43.184.80    <none>        8002/TCP         18m
 
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/jenkins-dev-nginxdep       1/1     1            1           9m31s
-deployment.apps/jenkins-dev-movie-db-dep   1/1     1            1           9m31s
-deployment.apps/jenkins-dev-cast-dep       1/1     1            1           9m31s
-deployment.apps/jenkins-dev-movie-dep      1/1     1            1           9m31s
-deployment.apps/jenkins-dev-cast-db-dep    1/1     1            1           9m31s
+deployment.apps/jenkins-dev-nginxdep       1/1     1            1           18m
+deployment.apps/jenkins-dev-movie-db-dep   1/1     1            1           18m
+deployment.apps/jenkins-dev-cast-dep       1/1     1            1           18m
+deployment.apps/jenkins-dev-movie-dep      1/1     1            1           18m
+deployment.apps/jenkins-dev-cast-db-dep    1/1     1            1           18m
 
 NAME                                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/jenkins-dev-nginxdep-5599bd489d      1         1         1       9m31s
-replicaset.apps/jenkins-dev-movie-db-dep-c7c4d75d8   1         1         1       9m31s
-replicaset.apps/jenkins-dev-cast-dep-f56486cd9       1         1         1       9m31s
-replicaset.apps/jenkins-dev-movie-dep-66dc5665d9     1         1         1       9m31s
-replicaset.apps/jenkins-dev-cast-db-dep-6f58cd574d   1         1         1       9m31s
+replicaset.apps/jenkins-dev-nginxdep-5599bd489d      1         1         1       18m
+replicaset.apps/jenkins-dev-movie-db-dep-c7c4d75d8   1         1         1       18m
+replicaset.apps/jenkins-dev-cast-dep-f56486cd9       1         1         1       18m
+replicaset.apps/jenkins-dev-movie-dep-66dc5665d9     1         1         1       18m
+replicaset.apps/jenkins-dev-cast-db-dep-6f58cd574d   1         1         1       18m
 ######   Listing QA  ######
 NAME                                           READY   STATUS    RESTARTS   AGE
-pod/jenkins-qa-nginxdep-5f99cc7665-qjnrv       1/1     Running   0          5m57s
-pod/jenkins-qa-cast-db-dep-6b84d79d67-jcgbg    1/1     Running   0          5m57s
-pod/jenkins-qa-movie-dep-5fffb7f865-8g2f9      1/1     Running   0          5m57s
-pod/jenkins-qa-cast-dep-d9b5bd686-v5pbr        1/1     Running   0          5m57s
-pod/jenkins-qa-movie-db-dep-597d7fb8dc-gdw8j   1/1     Running   0          5m57s
+pod/jenkins-qa-nginxdep-5f99cc7665-qjnrv       1/1     Running   0          14m
+pod/jenkins-qa-cast-db-dep-6b84d79d67-jcgbg    1/1     Running   0          14m
+pod/jenkins-qa-movie-dep-5fffb7f865-8g2f9      1/1     Running   0          14m
+pod/jenkins-qa-cast-dep-d9b5bd686-v5pbr        1/1     Running   0          14m
+pod/jenkins-qa-movie-db-dep-597d7fb8dc-gdw8j   1/1     Running   0          14m
 
 NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-service/jenkins-qa-movie-app   ClusterIP   10.43.196.149   <none>        8000/TCP         5m58s
-service/jenkins-qa-nginx-app   NodePort    10.43.174.14    <none>        8080:32338/TCP   5m58s
-service/cast-db                ClusterIP   10.43.120.129   <none>        5432/TCP         5m58s
-service/movie-db               ClusterIP   10.43.124.165   <none>        5432/TCP         5m58s
-service/jenkins-qa-cast-app    NodePort    10.43.210.182   <none>        8002:30317/TCP   5m58s
+service/jenkins-qa-movie-app   ClusterIP   10.43.196.149   <none>        8000/TCP         14m
+service/jenkins-qa-nginx-app   NodePort    10.43.174.14    <none>        8080:32338/TCP   14m
+service/cast-db                ClusterIP   10.43.120.129   <none>        5432/TCP         14m
+service/movie-db               ClusterIP   10.43.124.165   <none>        5432/TCP         14m
+service/jenkins-qa-cast-app    ClusterIP   10.43.210.182   <none>        8002/TCP         14m
 
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/jenkins-qa-nginxdep       1/1     1            1           5m58s
-deployment.apps/jenkins-qa-cast-db-dep    1/1     1            1           5m58s
-deployment.apps/jenkins-qa-movie-dep      1/1     1            1           5m58s
-deployment.apps/jenkins-qa-cast-dep       1/1     1            1           5m58s
-deployment.apps/jenkins-qa-movie-db-dep   1/1     1            1           5m58s
+deployment.apps/jenkins-qa-nginxdep       1/1     1            1           14m
+deployment.apps/jenkins-qa-cast-db-dep    1/1     1            1           14m
+deployment.apps/jenkins-qa-movie-dep      1/1     1            1           14m
+deployment.apps/jenkins-qa-cast-dep       1/1     1            1           14m
+deployment.apps/jenkins-qa-movie-db-dep   1/1     1            1           14m
 
 NAME                                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/jenkins-qa-nginxdep-5f99cc7665       1         1         1       5m57s
-replicaset.apps/jenkins-qa-cast-db-dep-6b84d79d67    1         1         1       5m57s
-replicaset.apps/jenkins-qa-movie-dep-5fffb7f865      1         1         1       5m57s
-replicaset.apps/jenkins-qa-cast-dep-d9b5bd686        1         1         1       5m57s
-replicaset.apps/jenkins-qa-movie-db-dep-597d7fb8dc   1         1         1       5m57s
+replicaset.apps/jenkins-qa-nginxdep-5f99cc7665       1         1         1       14m
+replicaset.apps/jenkins-qa-cast-db-dep-6b84d79d67    1         1         1       14m
+replicaset.apps/jenkins-qa-movie-dep-5fffb7f865      1         1         1       14m
+replicaset.apps/jenkins-qa-cast-dep-d9b5bd686        1         1         1       14m
+replicaset.apps/jenkins-qa-movie-db-dep-597d7fb8dc   1         1         1       14m
 ######   Listing STAGING  ######
 NAME                                                READY   STATUS    RESTARTS   AGE
-pod/jenkins-staging-nginxdep-6bdcf5d96d-wk2hx       1/1     Running   0          6m7s
-pod/jenkins-staging-movie-dep-5bd6bcc85-cjpw4       1/1     Running   0          6m7s
-pod/jenkins-staging-cast-db-dep-bf7464d66-xrffj     1/1     Running   0          6m7s
-pod/jenkins-staging-movie-db-dep-7cbc5795b6-nfwf8   1/1     Running   0          6m7s
-pod/jenkins-staging-cast-dep-69469c7d55-c2jsz       1/1     Running   0          6m7s
+pod/jenkins-staging-nginxdep-6bdcf5d96d-wk2hx       1/1     Running   0          14m
+pod/jenkins-staging-movie-dep-5bd6bcc85-cjpw4       1/1     Running   0          14m
+pod/jenkins-staging-cast-db-dep-bf7464d66-xrffj     1/1     Running   0          14m
+pod/jenkins-staging-movie-db-dep-7cbc5795b6-nfwf8   1/1     Running   0          14m
+pod/jenkins-staging-cast-dep-69469c7d55-c2jsz       1/1     Running   0          14m
 
 NAME                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-service/movie-db                    ClusterIP   10.43.198.180   <none>        5432/TCP         6m8s
-service/jenkins-staging-movie-app   ClusterIP   10.43.208.221   <none>        8000/TCP         6m8s
-service/cast-db                     ClusterIP   10.43.221.84    <none>        5432/TCP         6m8s
-service/jenkins-staging-cast-app    NodePort    10.43.199.210   <none>        8002:31456/TCP   6m8s
-service/jenkins-staging-nginx-app   NodePort    10.43.246.22    <none>        8080:32149/TCP   6m8s
+service/movie-db                    ClusterIP   10.43.198.180   <none>        5432/TCP         14m
+service/jenkins-staging-movie-app   ClusterIP   10.43.208.221   <none>        8000/TCP         14m
+service/cast-db                     ClusterIP   10.43.221.84    <none>        5432/TCP         14m
+service/jenkins-staging-nginx-app   NodePort    10.43.246.22    <none>        8080:32149/TCP   14m
+service/jenkins-staging-cast-app    ClusterIP   10.43.199.210   <none>        8002/TCP         14m
 
 NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/jenkins-staging-nginxdep       1/1     1            1           6m7s
-deployment.apps/jenkins-staging-movie-dep      1/1     1            1           6m7s
-deployment.apps/jenkins-staging-cast-db-dep    1/1     1            1           6m7s
-deployment.apps/jenkins-staging-movie-db-dep   1/1     1            1           6m7s
-deployment.apps/jenkins-staging-cast-dep       1/1     1            1           6m7s
+deployment.apps/jenkins-staging-nginxdep       1/1     1            1           14m
+deployment.apps/jenkins-staging-movie-dep      1/1     1            1           14m
+deployment.apps/jenkins-staging-cast-db-dep    1/1     1            1           14m
+deployment.apps/jenkins-staging-movie-db-dep   1/1     1            1           14m
+deployment.apps/jenkins-staging-cast-dep       1/1     1            1           14m
 
 NAME                                                      DESIRED   CURRENT   READY   AGE
-replicaset.apps/jenkins-staging-nginxdep-6bdcf5d96d       1         1         1       6m7s
-replicaset.apps/jenkins-staging-movie-dep-5bd6bcc85       1         1         1       6m7s
-replicaset.apps/jenkins-staging-cast-db-dep-bf7464d66     1         1         1       6m7s
-replicaset.apps/jenkins-staging-movie-db-dep-7cbc5795b6   1         1         1       6m7s
-replicaset.apps/jenkins-staging-cast-dep-69469c7d55       1         1         1       6m7s
+replicaset.apps/jenkins-staging-nginxdep-6bdcf5d96d       1         1         1       14m
+replicaset.apps/jenkins-staging-movie-dep-5bd6bcc85       1         1         1       14m
+replicaset.apps/jenkins-staging-cast-db-dep-bf7464d66     1         1         1       14m
+replicaset.apps/jenkins-staging-movie-db-dep-7cbc5795b6   1         1         1       14m
+replicaset.apps/jenkins-staging-cast-dep-69469c7d55       1         1         1       14m
 ######   Listing PROD  ######
 NAME                                            READY   STATUS    RESTARTS   AGE
-pod/jenkins-prod-nginxdep-65b56c89cd-bq465      1/1     Running   0          3m29s
-pod/jenkins-prod-cast-db-dep-58594f4976-g42rj   1/1     Running   0          3m29s
-pod/jenkins-prod-movie-dep-6d675746d5-k94gm     1/1     Running   0          3m29s
-pod/jenkins-prod-movie-db-dep-9b99bfbdd-h8lms   1/1     Running   0          3m29s
-pod/jenkins-prod-cast-dep-7c9759dcb5-qxnxl      1/1     Running   0          3m29s
+pod/jenkins-prod-nginxdep-65b56c89cd-bq465      1/1     Running   0          12m
+pod/jenkins-prod-cast-db-dep-58594f4976-g42rj   1/1     Running   0          12m
+pod/jenkins-prod-movie-dep-6d675746d5-k94gm     1/1     Running   0          12m
+pod/jenkins-prod-movie-db-dep-9b99bfbdd-h8lms   1/1     Running   0          12m
+pod/jenkins-prod-cast-dep-7c9759dcb5-qxnxl      1/1     Running   0          12m
 
 NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-service/jenkins-prod-nginx-app   NodePort    10.43.202.43    <none>        8080:31182/TCP   3m29s
-service/jenkins-prod-movie-app   ClusterIP   10.43.242.107   <none>        8000/TCP         3m29s
-service/cast-db                  ClusterIP   10.43.2.123     <none>        5432/TCP         3m29s
-service/jenkins-prod-cast-app    NodePort    10.43.14.178    <none>        8002:31902/TCP   3m29s
-service/movie-db                 ClusterIP   10.43.244.7     <none>        5432/TCP         3m29s
+service/jenkins-prod-nginx-app   NodePort    10.43.202.43    <none>        8080:31182/TCP   12m
+service/jenkins-prod-movie-app   ClusterIP   10.43.242.107   <none>        8000/TCP         12m
+service/cast-db                  ClusterIP   10.43.2.123     <none>        5432/TCP         12m
+service/movie-db                 ClusterIP   10.43.244.7     <none>        5432/TCP         12m
+service/jenkins-prod-cast-app    ClusterIP   10.43.14.178    <none>        8002/TCP         12m
 
 NAME                                        READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/jenkins-prod-nginxdep       1/1     1            1           3m29s
-deployment.apps/jenkins-prod-cast-db-dep    1/1     1            1           3m29s
-deployment.apps/jenkins-prod-movie-dep      1/1     1            1           3m29s
-deployment.apps/jenkins-prod-movie-db-dep   1/1     1            1           3m29s
-deployment.apps/jenkins-prod-cast-dep       1/1     1            1           3m29s
+deployment.apps/jenkins-prod-nginxdep       1/1     1            1           12m
+deployment.apps/jenkins-prod-cast-db-dep    1/1     1            1           12m
+deployment.apps/jenkins-prod-movie-dep      1/1     1            1           12m
+deployment.apps/jenkins-prod-movie-db-dep   1/1     1            1           12m
+deployment.apps/jenkins-prod-cast-dep       1/1     1            1           12m
 
 NAME                                                  DESIRED   CURRENT   READY   AGE
-replicaset.apps/jenkins-prod-nginxdep-65b56c89cd      1         1         1       3m29s
-replicaset.apps/jenkins-prod-cast-db-dep-58594f4976   1         1         1       3m29s
-replicaset.apps/jenkins-prod-movie-dep-6d675746d5     1         1         1       3m29s
-replicaset.apps/jenkins-prod-movie-db-dep-9b99bfbdd   1         1         1       3m29s
-replicaset.apps/jenkins-prod-cast-dep-7c9759dcb5      1         1         1       3m29s
+replicaset.apps/jenkins-prod-nginxdep-65b56c89cd      1         1         1       12m
+replicaset.apps/jenkins-prod-cast-db-dep-58594f4976   1         1         1       12m
+replicaset.apps/jenkins-prod-movie-dep-6d675746d5     1         1         1       12m
+replicaset.apps/jenkins-prod-movie-db-dep-9b99bfbdd   1         1         1       12m
+replicaset.apps/jenkins-prod-cast-dep-7c9759dcb5      1         1         1       12m
