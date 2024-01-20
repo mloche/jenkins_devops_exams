@@ -138,27 +138,6 @@ pipeline {
     }
   }
 
-
-/*  stage('Stop old Dev'){
-    environment{
-      KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
-    }
-    steps {
-      timeout: time(minutes: 5){
-                input message: 'Want to stop old dev?', ok: 'Yes',
-//                  parameters: [booleanParam(name: 'stop_dev', defaultValue: true)]
-      }
-      script {
-  //      if(params.stop_dev) {
-          sh '''
-          helm uninstall jenkins --namespace dev
-          '''
-    //    }
-      }
-    }
-  }
-*/
-
   stage('Deploy Dev'){
     environment{
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
@@ -167,6 +146,33 @@ pipeline {
       script {
         sh '''
         helm upgrade --install jenkins-dev jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace dev
+        '''
+      }
+    }
+  }
+
+  stage('Deploy QA'){
+    environment{
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+    }
+    steps {
+      script {
+        sh '''
+        helm upgrade --install jenkins-QA jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace qa
+        '''
+      }
+    }
+  }
+
+
+  stage('Deploy staging'){
+    environment{
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+    }
+    steps {
+      script {
+        sh '''
+        helm upgrade --install jenkins-staging jenkins-exam/ --values=./jenkins-exam/values.yaml --namespace staging
         '''
       }
     }
