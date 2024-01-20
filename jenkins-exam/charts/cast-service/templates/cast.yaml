@@ -16,12 +16,12 @@ spec:
       - name: cast
         image: {{ .Values.cast.image.repository }}:{{ .Values.cast.image.tag }}
         imagePullPolicy: {{ .Values.cast.image.pullpolicy }}
-        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.cast.host }}", "--port", "{{ .Values.cast.port }}"]
+        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.cast.host }}", "--port", "{{ .Values.cast.targetport }}"]
         env:
         - name: DATABASE_URI
           value: {{ .Values.cast.database.uri }}
         ports:
-        - containerPort: {{ .Values.cast.port }}
+        - containerPort: {{ .Values.cast.targetport }}
         volumeMounts:
         - name: cast-mnt
           mountPath: /app-storage/

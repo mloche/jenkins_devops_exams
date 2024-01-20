@@ -16,12 +16,14 @@ spec:
       - name: cast
         image: {{ .Values.movie.image.repository }}:{{ .Values.movie.image.tag }}
         imagePullPolicy: {{ .Values.movie.image.pullpolicy }}
-        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.movie.host }}", "--port", "{{ .Values.movie.port }}"]
+        command: ["uvicorn", "app.main:app", "--reload", "--host", "{{ .Values.movie.host }}", "--port", "{{ .Values.movie.targetport }}"]
         env:
         - name: DATABASE_URI
           value: {{ .Values.movie.database.uri }}
+        - name: CAST_SERVICE_HOST_URL
+          value: 'http://{{ .Release.Name }}-cast-app:8002/api/v1/casts/'
         ports:
-        - containerPort: {{ .Values.movie.port }}
+        - containerPort: {{ .Values.movie.targetport }}
         volumeMounts:
         - name: movie-mnt
           mountPath: /app-storage
