@@ -41,4 +41,3 @@ spec:
   - protocol: TCP
     port: {{ .Values.cast.port }}
     targetPort: {{ .Values.cast.targetport }}
-  type: NodePort
